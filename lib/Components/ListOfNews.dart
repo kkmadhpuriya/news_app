@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/Models/NewsDataModel.dart';
 import 'package:news_app/Models/NewsModel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ListOfNews extends StatefulWidget {
   final Function callBackFunction;
@@ -22,6 +23,12 @@ class _ListOfNewsState extends State<ListOfNews> {
     super.initState();
   }
 
+  _launchURL(_url) async {
+    try {
+      await launch(_url);
+    } catch (e) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     var newsList = widget.news;
@@ -37,6 +44,9 @@ class _ListOfNewsState extends State<ListOfNews> {
             horizontal: 15,
           ),
           child: ListTile(
+            onTap: () {
+              _launchURL(news.url);
+            },
             contentPadding: EdgeInsets.symmetric(
               horizontal: 15,
               vertical: 15,
